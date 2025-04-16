@@ -1,11 +1,14 @@
+
 const dotContainer = document.querySelector("[data-dot-container]");
+
 const slides = dotContainer
     .closest("[data-carousel]")
     .querySelector("[data-slides]");
 
-for(let i = 1; i < slides.children.length; i++) {
+for(let i = 0; i < slides.children.length; i++) {
     const dot = document.createElement("button");
     dot.className = "dot";
+    dot.setAttribute("data-dot", "");
     dotContainer.append(dot);
 }
 
@@ -37,5 +40,24 @@ buttons.forEach(button => {
     })
 });
 
+
 //Make dot clickable to change to pic
+const dots = [...dotContainer.children]
+dots.forEach(dot => {
+    dot.addEventListener("click", () => {
+        let newIndex = dots.indexOf(dot);
+
+        const activeSlide = slides.querySelector("[data-active]");
+        const activeDot = dotContainer.querySelector("[data-active]")
+
+        slides.children[newIndex].dataset.active = true;
+        delete activeSlide.dataset.active;
+        
+
+        dotContainer.children[newIndex].dataset.active = true;
+        delete activeDot.dataset.active;
+    })
+})
+
 //Make images cyclle forward every 5 seconds
+
