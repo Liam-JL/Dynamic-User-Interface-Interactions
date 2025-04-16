@@ -53,11 +53,31 @@ dots.forEach(dot => {
         slides.children[newIndex].dataset.active = true;
         delete activeSlide.dataset.active;
         
-
         dotContainer.children[newIndex].dataset.active = true;
         delete activeDot.dataset.active;
     })
 })
 
-//Make images cyclle forward every 5 seconds
+//Make images cycle forward every 5 seconds
 
+function nextImage() {
+    const activeSlide = slides.querySelector("[data-active]");
+    const activeDot = dotContainer.querySelector("[data-active]")
+
+    let newIndex = [...slides.children].indexOf(activeSlide) + 1;
+    if (newIndex < 0) {
+        newIndex = slides.children.length - 1;
+    }
+    if (newIndex >= slides.children.length) {
+        newIndex = 0;
+    }
+
+    slides.children[newIndex].dataset.active = true;
+    delete activeSlide.dataset.active;
+    
+
+    dotContainer.children[newIndex].dataset.active = true;
+    delete activeDot.dataset.active;
+}
+
+const interval = setInterval(nextImage, 5000)
